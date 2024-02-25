@@ -1,23 +1,23 @@
-import './App.css';
-import {useEffect, useState} from "react";
+import React, {useEffect} from "react";
+import async from "async";
+
+const API_URL = 'http://www.omdbapi.com?apiKey=8963b879';
 
 const App = () => {
 
-    const [counter, setCounter] = useState(0);
+    const searchMovies = async (title) => {
+        const response = await fetch(`${API_URL}&s=${title}`);
+        const data = await response.json();
 
-    // never modify state manually
-    // use effect state runs when reload the app
-    // React is about components, states and props
+        console.log(data.Search);
+    }
+
     useEffect(() => {
-        alert("You changed the counter : " + counter);
-    }, [counter])
+        searchMovies('Spiderman');
+    }, [])
 
     return (
-        <div className="App">
-            <button onClick={() => setCounter((prevCount) => prevCount - 1)}>-</button>
-            <h1>{counter}</h1>
-            <button onClick={() => setCounter((prevCount) => prevCount + 1)}>+</button>
-        </div>
+        <h1>App</h1>
     )
 }
 
